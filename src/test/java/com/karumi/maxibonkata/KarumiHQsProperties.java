@@ -1,5 +1,6 @@
 package com.karumi.maxibonkata;
 
+import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 
@@ -22,6 +23,20 @@ public class KarumiHQsProperties {
     @Property
     public void theNumberOfMaxibonsInKarumiHQIsAlwaysMoreThanTwo(int maxibonsGrabbed) {
         Developer developer = new Developer("Xavi", maxibonsGrabbed);
+        karumiHQs.openFridge(developer);
+        assertTrue(karumiHQs.getMaxibonsLeft() > 2);
+    }
+
+    @Property
+    public void theNumberOfMaxibonsInKarumiHQIsAlwaysMoreThanTwoForNotSoHungryDeveloper(
+            @From(NotSoHungryDevelopersGenerator.class) Developer developer) {
+        karumiHQs.openFridge(developer);
+        assertTrue(karumiHQs.getMaxibonsLeft() > 2);
+    }
+
+    @Property
+    public void theNumberOfMaxibonsInKarumiHQIsAlwaysMoreThanTwoForHungryDeveloper(
+            @From(HungryDevelopersGenerator.class) Developer developer) {
         karumiHQs.openFridge(developer);
         assertTrue(karumiHQs.getMaxibonsLeft() > 2);
     }
