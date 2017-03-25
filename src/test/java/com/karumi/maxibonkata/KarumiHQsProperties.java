@@ -10,15 +10,20 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 
 @RunWith(JUnitQuickcheck.class)
 public class KarumiHQsProperties {
 
+    Chat chat;
     KarumiHQs karumiHQs;
 
     @Before
     public void setUp() {
-        karumiHQs = new KarumiHQs(new ConsoleChat());
+        chat = mock(Chat.class);
+        karumiHQs = new KarumiHQs(chat);
         System.out.println("Initializing Karumi HQ");
     }
 
@@ -56,6 +61,25 @@ public class KarumiHQsProperties {
             @From(HungryDevelopersGenerator.class) Developer developer) {
         karumiHQs.openFridge(developer);
         assertTrue(karumiHQs.getMaxibonsLeft() > 2);
+    }
+
+    @Property
+    public void theHungryDeveloperSendChatMessage(@From(HungryDevelopersGenerator.class) Developer developer) {
+        karumiHQs.openFridge(developer);
+        verify(chat).sendMessage("Hi guys, I'm " + developer.getName() + ". We need more maxibons!");
+    }
+
+    @Property
+    public void theNotSoHungryDeveloperNeverSendChatMessage(@From(NotSoHungryDevelopersGenerator.class) Developer developer) {
+        karumiHQs.openFridge(developer);
+        verify(chat, never()).sendMessage("Hi guys, I'm " + developer.getName() + ". We need more maxibons!");
+    }
+
+    @Property
+    public void theHungryDeveloperNeverSendWrongChatMessage(@From(HungryDevelopersGenerator.class) Developer developer) {
+        karumiHQs.openFridge(developer);
+        verify(chat, never()).sendMessage("Hi XXX guys, I'm " + developer.getName() + ". We need more maxibons!");
+        verify(chat).sendMessage("Hi guys, I'm " + developer.getName() + ". We need more maxibons!");
     }
 
 }
