@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -67,6 +68,12 @@ public class KarumiHQsProperties {
     public void theHungryDeveloperSendChatMessage(@From(HungryDevelopersGenerator.class) Developer developer) {
         karumiHQs.openFridge(developer);
         verify(chat).sendMessage("Hi guys, I'm " + developer.getName() + ". We need more maxibons!");
+    }
+
+    @Property
+    public void theHungryDeveloperSendSomeChatMessage(@From(HungryDevelopersGenerator.class) Developer developer) {
+        karumiHQs.openFridge(developer);
+        verify(chat).sendMessage(anyString());
     }
 
     @Property
