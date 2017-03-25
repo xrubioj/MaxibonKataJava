@@ -13,25 +13,11 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnitQuickcheck.class)
 public class DeveloperProperties {
 
-    KarumiHQs karumiHQs;
-
-    @Before
-    public void setUp() {
-        karumiHQs = new KarumiHQs(new ConsoleChat());
-        System.out.println("Initializing Karumi HQ");
-    }
-
     @Property public void theNumberOfMaxibonsIsAlwaysPositiveOrZero(int maxibons) {
         System.out.println(maxibons);
         Developer developer = new Developer("Xavi", maxibons);
         System.out.println(developer.toString());
         assertTrue(developer.getNumberOfMaxibonsToGrab() >= 0);
-    }
-
-    @Property public void theNumberOfMaxibonsInKarumiHQIsAlwaysMoreThanTwo(int maxibonsGrabbed) {
-        Developer developer = new Developer("Xavi", maxibonsGrabbed);
-        karumiHQs.openFridge(developer);
-        assertTrue(karumiHQs.getMaxibonsLeft() > 2);
     }
 
     @Test
