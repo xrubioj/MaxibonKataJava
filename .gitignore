@@ -21,3 +21,5 @@ target
 Thumbs.db
 *.swp
 *.bak
+.gradletasknamecache
+local.properties
