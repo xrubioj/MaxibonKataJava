@@ -70,13 +70,15 @@ public class KarumiHQsProperties {
     }
 
     @Property
-    public void theNotSoHungryDeveloperNeverSendChatMessage(@From(NotSoHungryDevelopersGenerator.class) Developer developer) {
+    public void theNotSoHungryDeveloperNeverSendChatMessage(
+            @From(NotSoHungryDevelopersGenerator.class) Developer developer) {
         karumiHQs.openFridge(developer);
         verify(chat, never()).sendMessage("Hi guys, I'm " + developer.getName() + ". We need more maxibons!");
     }
 
     @Property
-    public void theHungryDeveloperNeverSendWrongChatMessage(@From(HungryDevelopersGenerator.class) Developer developer) {
+    public void theHungryDeveloperNeverSendWrongChatMessage(
+            @From(HungryDevelopersGenerator.class) Developer developer) {
         karumiHQs.openFridge(developer);
         verify(chat, never()).sendMessage("Hi XXX guys, I'm " + developer.getName() + ". We need more maxibons!");
         verify(chat).sendMessage("Hi guys, I'm " + developer.getName() + ". We need more maxibons!");
