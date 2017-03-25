@@ -3,7 +3,6 @@ package com.karumi.maxibonkata;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
