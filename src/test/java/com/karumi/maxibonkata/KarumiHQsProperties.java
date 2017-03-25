@@ -41,4 +41,11 @@ public class KarumiHQsProperties {
         assertTrue(karumiHQs.getMaxibonsLeft() > 2);
     }
 
+    @Property(trials = 1000)
+    public void theNumberOfMaxibonsInKarumiHQIsAlwaysMoreThanTwoForHungryDeveloperIntense(
+            @From(HungryDevelopersGenerator.class) Developer developer) {
+        karumiHQs.openFridge(developer);
+        assertTrue(karumiHQs.getMaxibonsLeft() > 2);
+    }
+
 }
